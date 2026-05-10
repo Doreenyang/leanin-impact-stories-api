@@ -10,11 +10,11 @@ Women considering joining Lean In often need to see themselves in the success of
 
 ### Prerequisites
 - **Docker Desktop** (download from https://www.docker.com/products/docker-desktop) - Must be running
-- **Python 3.10+** (optional, for local testing)
+- **Python 3.10+** (optional, for local testing without Docker)
 
 ### Setup
 
-**Step 1: Start Docker containers**
+**Step 1: Start Docker containers** (includes PostgreSQL database automatically)
 ```bash
 cd leanin-impact-stories-api
 docker-compose up -d
