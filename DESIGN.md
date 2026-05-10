@@ -23,6 +23,22 @@ PostgreSQL (primary storage)
 - **Moderation Pipeline**: Simple status-based flow (pending → approved/rejected) with audit logging
 - **Query Engine**: Optimized for filtered, paginated reads with GIN indexes for array operations
 
+## Database Schema
+
+| Table | Purpose | Key Columns |
+|-------|---------|-------------|
+| **impact_stories** | Public-facing stories | id, title, story_text (redacted), industry, career_level, outcome_tags (ARRAY), summary, moderation_status, created_at |
+| **story_submissions** | Audit trail of original text | id, impact_story_id, original_text (before redaction), ai_findings, created_at |
+| **moderation_logs** | Decision history | id, impact_story_id, moderator_decision (approved/rejected), reasoning, created_at |
+
+**Indexes:**
+- `(moderation_status, created_at)` on impact_stories — optimized for "show approved stories, newest first"
+- `GIN(outcome_tags)` on impact_stories — enables array containment queries for tag filtering
+
+**Foreign Keys:**
+- story_submissions.impact_story_id → impact_stories.id
+- moderation_logs.impact_story_id → impact_stories.id
+
 ## Database Design Rationale
 
 **impact_stories table**: The single source of truth for all public-facing story data. I chose a denormalized design (storing tags and summary directly) over a normalized tag table because:
