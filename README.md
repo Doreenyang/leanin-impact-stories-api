@@ -45,7 +45,7 @@ pip install -r requirements.txt
 pytest tests/test_stories.py -v
 ```
 
-Expected: 5/5 tests pass 
+Expected: 13/13 tests pass 
 
 ## API Examples
 
@@ -75,7 +75,7 @@ curl "http://localhost:8000/api/v1/impact-stories/analytics"
 
 ## AI Integration
 
-I used AI tools throughout this project:
+I used AI tools for this project:
 
 - **Claude**: Generated realistic seed stories that emotionally align with Lean In's mission
 - **Claude**: Helped design the moderation flow and PII detection logic
